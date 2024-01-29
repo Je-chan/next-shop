@@ -1,11 +1,10 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from "react";
+import LoginClient from "@/app/(auth)/login/LoginClient";
 
 const Login = () => {
-	return (
-		<div>
-			
-		</div>
-	);
+  return <LoginClient />;
 };
 
 export default Login;

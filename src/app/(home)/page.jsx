@@ -1,6 +1,3 @@
-
 export default function Home() {
-  return (
-    <main>HOME</main>
-  );
+  return <main>여긴 뭔데??</main>;
 }
