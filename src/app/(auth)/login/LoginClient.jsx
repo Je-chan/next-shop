@@ -4,6 +4,7 @@ import Image from "next/image";
 import LogoPath from "@/assets/colorful.svg";
 import { useRouter } from "next/navigation";
 import styles from "./Auth.module.scss";
+import Loader from "@/components/loader/Loader";
 
 const LoginClient = () => {
   const [email, setEmail] = useState("");
@@ -28,25 +29,28 @@ const LoginClient = () => {
   };
 
   return (
-    <section className={styles.page}>
-      <div className={styles.container}>
-        <h1 className={styles.logo}>
-          <Image src={LogoPath} alt={"로고"} />
-        </h1>
+    <>
+      <Loader />
+      <section className={styles.page}>
+        <div className={styles.container}>
+          <h1 className={styles.logo}>
+            <Image src={LogoPath} alt={"로고"} />
+          </h1>
 
-        <form onSubmit={loginUser} className={styles.form}>
-          {/* 인풋 */}
-          <div className={styles.group}>
-            {/*  자동 로그인, 비밀번호 수정 */}
-          </div>
+          <form onSubmit={loginUser} className={styles.form}>
+            {/* 인풋 */}
+            <div className={styles.group}>
+              {/*  자동 로그인, 비밀번호 수정 */}
+            </div>
 
-          <div className={styles.buttonGroup}>
-            {/*  버튼 */}
-            <div>{/* 버튼 */}</div>
-          </div>
-        </form>
-      </div>
-    </section>
+            <div className={styles.buttonGroup}>
+              {/*  버튼 */}
+              <div>{/* 버튼 */}</div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </>
   );
 };
 
