@@ -1,3 +1,12 @@
+import ModalContainer from "@/components/pracitce_portal/ModalContainer";
+
 export default function Home() {
-  return <main>여긴 뭔데??</main>;
+  return (
+    <>
+      <div id={"portal"}></div>
+      <div>
+        <ModalContainer />
+      </div>
+    </>
+  );
 }
