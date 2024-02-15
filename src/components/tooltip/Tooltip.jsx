@@ -1,7 +1,7 @@
 import React from "react";
 
 const Tooltip = () => {
-  return <div></div>;
+  return <div>TOOLTIP</div>;
 };
 
 export default Tooltip;

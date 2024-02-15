@@ -15,7 +15,7 @@ const Checkbox = ({
         disabled={disabled}
         onChange={onChange}
         {...restProps}
-      />
+      />{" "}
       {label}
     </label>
   );
