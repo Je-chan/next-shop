@@ -8,6 +8,8 @@ import Loader from "@/components/loader/Loader";
 import Input from "@/components/input/Input";
 import AutoSignInCheckbox from "@/components/autoSignInCheckbox/AutoSignInCheckbox";
 import Divider from "@/components/divider/Divider";
+import Button from "@/components/button/Button";
+import Link from "next/link";
 
 const LoginClient = () => {
   const [email, setEmail] = useState("");
@@ -72,10 +74,22 @@ const LoginClient = () => {
 
             <div className={styles.buttonGroup}>
               {/*  버튼 */}
-              <Divider />
+              <Button type={"submit"} width={"100%"}>
+                로그인
+              </Button>
 
               <Divider />
-              <div>{/* 버튼 */}</div>
+
+              <Button width={"100%"} secondary>
+                <Link href={"/register"}>회원가입</Link>
+              </Button>
+
+              <Divider />
+
+              <div>
+                <Button onClick={signInWithGoogle}>구글 로그인</Button>
+                {/* 버튼 */}
+              </div>
             </div>
           </form>
         </div>
