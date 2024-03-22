@@ -11,6 +11,12 @@ import Divider from "@/components/divider/Divider";
 import Button from "@/components/button/Button";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { auth } from "@/firebase/fiebase";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 
 const LoginClient = () => {
   const [email, setEmail] = useState("");
@@ -23,16 +29,30 @@ const LoginClient = () => {
     router.push("/");
   };
 
+  const _afterLoginHandler = (loginFunc) => {
+    loginFunc()
+      .then(() => {
+        toast.success("로그인에 성공했습니다");
+        redirectUser();
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
   const loginUser = (e) => {
     e.preventDefault();
     toast.info("성공");
     setIsLoading(true);
 
     // firebase 코드를 넣을 것
+    _afterLoginHandler(() => signInWithEmailAndPassword(auth, email, password));
   };
 
   const signInWithGoogle = () => {
-    // firebase 코드
+    const provider = new GoogleAuthProvider();
+    _afterLoginHandler(() => signInWithPopup(auth, provider));
   };
 
   return (

@@ -10,7 +10,6 @@ const Button = ({
   width,
   ...restProps
 }) => {
-  console.log(width);
   const composeClasses = classNames(
     styles.button,
     secondary ? styles.secondary : styles.primary,
