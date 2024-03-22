@@ -4,11 +4,14 @@ import Loader from "@/components/loader/Loader";
 import Image from "next/image";
 import LogoPath from "@/assets/colorful.svg";
 import Input from "@/components/input/Input";
-import AutoSignInCheckbox from "@/components/autoSignInCheckbox/AutoSignInCheckbox";
 import Button from "@/components/button/Button";
 import Divider from "@/components/divider/Divider";
 import styles from "../login/Auth.module.scss";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/firebase/fiebase";
+import { useRouter } from "next/navigation";
 
 const RegisterClient = () => {
   const [email, setEmail] = useState("");
@@ -16,9 +19,29 @@ const RegisterClient = () => {
   const [cPassword, setCPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const router = useRouter();
   const registerUser = (e) => {
     e.preventDefault();
+
+    if (password !== cPassword) {
+      return toast.error(`비밀번호가 일치하지 않습니다.`);
+    }
+
     setIsLoading(true);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log(user);
+        setIsLoading(false);
+
+        toast.success("등록 성공");
+        router.push("/login");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        toast.error(err.message);
+      });
   };
 
   return (
