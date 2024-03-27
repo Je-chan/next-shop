@@ -8,10 +8,12 @@ import { auth } from "@/firebase/fiebase";
 import { toast } from "react-toastify";
 import { usePathname, useRouter } from "next/navigation";
 import NO_HEADER_PAGE from "@/layouts/header/NO_HEADER_PAGE";
+import { useDispatch } from "react-redux";
+import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "@/redux/slice/authSlice";
 
 const Header = () => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
@@ -30,15 +32,22 @@ const Header = () => {
           setDisplayName(user.displayName);
         }
 
-        // TODO :  유저 정보를 리덕스 스토어에 저장하기.
+        dispatch(
+          SET_ACTIVE_USER({
+            email: user.email,
+            userName: user.displayName ? user.displayName : displayName,
+            userID: user.uid,
+          }),
+        );
       }
+
       // (2) 유저 정보가 없는 경우
       else {
         setDisplayName("");
-        // TODO : 리덕스 스토어에서 유저 정보 지우기
+        dispatch(REMOVE_ACTIVE_USER());
       }
     });
-  }, []);
+  }, [dispatch, displayName]);
   const logoutUser = () => {
     signOut(auth)
       .then(() => {
